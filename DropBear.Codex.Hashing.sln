@@ -1,0 +1,16 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DropBear.Codex.Hashing", "DropBear.Codex.Hashing\DropBear.Codex.Hashing.csproj", "{F879FA52-753C-4C8C-AFA2-4CF8BEBB6BCF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F879FA52-753C-4C8C-AFA2-4CF8BEBB6BCF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F879FA52-753C-4C8C-AFA2-4CF8BEBB6BCF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F879FA52-753C-4C8C-AFA2-4CF8BEBB6BCF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F879FA52-753C-4C8C-AFA2-4CF8BEBB6BCF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

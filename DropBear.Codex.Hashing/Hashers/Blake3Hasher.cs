@@ -77,7 +77,8 @@ public class Blake3Hasher : IHasher
             return Result.Failure($"Error during base64 hash verification: {ex.Message}");
         }
     }
-
+#pragma warning disable IDE0060 // Remove unused parameter
     // Blake3 has a fixed output size but implementing to comply with interface.
     public IHasher WithHashSize(int size) => this;
+#pragma warning restore IDE0060 // Remove unused parameter
 }

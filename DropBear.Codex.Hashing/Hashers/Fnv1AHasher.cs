@@ -66,6 +66,9 @@ public class Fnv1AHasher : IHasher
         return isValid ? Result.Success() : Result.Failure("Base64 hash verification failed.");
     }
 
+
+#pragma warning disable IDE0060 // Remove unused parameter
     // FNV-1a output size is determined by the algorithm (32-bit or 64-bit), this method is effectively a noop.
     public IHasher WithHashSize(int size) => this;
+#pragma warning restore IDE0060 // Remove unused parameter
 }

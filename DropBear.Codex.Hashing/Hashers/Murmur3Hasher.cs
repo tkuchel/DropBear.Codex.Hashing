@@ -70,8 +70,10 @@ public class Murmur3Hasher : IHasher
         return isValid ? Result.Success() : Result.Failure("Base64 hash verification failed.");
     }
 
+#pragma warning disable IDE0060 // Remove unused parameter
     // MurmurHash3 output size is fixed by the algorithm (32-bit or 128-bit), so this method is effectively a noop.
     public IHasher WithHashSize(int size) => this;
+#pragma warning restore IDE0060 // Remove unused parameter
 
     public IHasher WithSeed(uint seed)
     {

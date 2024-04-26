@@ -83,6 +83,8 @@ public class SipHasher : IHasher
         return this;
     }
 
+#pragma warning disable IDE0060 // Remove unused parameter
     // SipHash output size is fixed by the algorithm, so this method is effectively a noop.
     public IHasher WithHashSize(int size) => this;
+#pragma warning restore IDE0060 // Remove unused parameter
 }

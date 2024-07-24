@@ -1,4 +1,8 @@
-﻿using System.Security.Cryptography;
+﻿#region
+
+using System.Security.Cryptography;
+
+#endregion
 
 namespace DropBear.Codex.Hashing.Helpers;
 
@@ -48,8 +52,14 @@ public static class HashingHelper
     }
 
     // Convert byte array to string
-    public static string ConvertByteArrayToBase64String(byte[] byteArray) => Convert.ToBase64String(byteArray);
+    public static string ConvertByteArrayToBase64String(byte[] byteArray)
+    {
+        return Convert.ToBase64String(byteArray);
+    }
 
     // Convert string to byte array
-    public static byte[] ConvertBase64StringToByteArray(string str) => Convert.FromBase64String(str);
+    public static byte[] ConvertBase64StringToByteArray(string str)
+    {
+        return Convert.FromBase64String(str);
+    }
 }

@@ -1,20 +1,33 @@
-﻿using System.Text;
+﻿#region
+
+using System.Text;
 using Blake3;
 using DropBear.Codex.Core;
 using DropBear.Codex.Hashing.Interfaces;
+
+#endregion
 
 namespace DropBear.Codex.Hashing.Hashers;
 
 public class Blake3Hasher : IHasher
 {
     // Blake3 does not use salt or iterations, so related methods are no-ops but included for interface compatibility
-    public IHasher WithSalt(byte[]? salt) => this;
-    public IHasher WithIterations(int iterations) => this;
+    public IHasher WithSalt(byte[]? salt)
+    {
+        return this;
+    }
+
+    public IHasher WithIterations(int iterations)
+    {
+        return this;
+    }
 
     public Result<string> Hash(string input)
     {
         if (string.IsNullOrEmpty(input))
+        {
             return Result<string>.Failure("Input cannot be null or empty.");
+        }
 
         try
         {
@@ -30,7 +43,9 @@ public class Blake3Hasher : IHasher
     public Result Verify(string input, string expectedHash)
     {
         if (string.IsNullOrEmpty(input) || string.IsNullOrEmpty(expectedHash))
+        {
             return Result.Failure("Input and expected hash cannot be null or empty.");
+        }
 
         try
         {
@@ -46,7 +61,9 @@ public class Blake3Hasher : IHasher
     public Result<string> EncodeToBase64Hash(byte[] data)
     {
         if (data == Array.Empty<byte>() || data.Length is 0)
+        {
             return Result<string>.Failure("Data cannot be null or empty.");
+        }
 
         try
         {
@@ -62,7 +79,9 @@ public class Blake3Hasher : IHasher
     public Result VerifyBase64Hash(byte[] data, string expectedBase64Hash)
     {
         if (data == Array.Empty<byte>() || data.Length is 0)
+        {
             return Result.Failure("Data cannot be null or empty.");
+        }
 
         try
         {
@@ -79,6 +98,9 @@ public class Blake3Hasher : IHasher
     }
 #pragma warning disable IDE0060 // Remove unused parameter
     // Blake3 has a fixed output size but implementing to comply with interface.
-    public IHasher WithHashSize(int size) => this;
+    public IHasher WithHashSize(int size)
+    {
+        return this;
+    }
 #pragma warning restore IDE0060 // Remove unused parameter
 }

@@ -1,7 +1,11 @@
-﻿using System.Text;
+﻿#region
+
+using System.Text;
 using DropBear.Codex.Core;
 using DropBear.Codex.Hashing.Interfaces;
 using HashDepot;
+
+#endregion
 
 namespace DropBear.Codex.Hashing.Hashers;
 
@@ -9,16 +13,28 @@ public class XxHasher : IHasher
 {
     private ulong _seed; // Default seed
 
-    public XxHasher(ulong seed = 0) => _seed = seed;
+    public XxHasher(ulong seed = 0)
+    {
+        _seed = seed;
+    }
 
     // XXHash does not use salt or iterations, so these methods are no-ops but are included for interface compliance
-    public IHasher WithSalt(byte[]? salt) => this;
-    public IHasher WithIterations(int iterations) => this;
+    public IHasher WithSalt(byte[]? salt)
+    {
+        return this;
+    }
+
+    public IHasher WithIterations(int iterations)
+    {
+        return this;
+    }
 
     public Result<string> Hash(string input)
     {
         if (string.IsNullOrEmpty(input))
+        {
             return Result<string>.Failure("Input cannot be null or empty.");
+        }
 
         try
         {
@@ -36,7 +52,9 @@ public class XxHasher : IHasher
     {
         var hashResult = Hash(input);
         if (!hashResult.IsSuccess)
+        {
             return Result.Failure("Failed to compute hash.");
+        }
 
         return hashResult.Value == expectedHash ? Result.Success() : Result.Failure("Verification failed.");
     }
@@ -44,7 +62,9 @@ public class XxHasher : IHasher
     public Result<string> EncodeToBase64Hash(byte[] data)
     {
         if (data == Array.Empty<byte>() || data.Length is 0)
+        {
             return Result<string>.Failure("Data cannot be null or empty.");
+        }
 
         try
         {
@@ -63,17 +83,22 @@ public class XxHasher : IHasher
     {
         var encodeResult = EncodeToBase64Hash(data);
         if (!encodeResult.IsSuccess)
+        {
             return Result.Failure("Failed to compute hash.");
+        }
 
         return encodeResult.Value == expectedBase64Hash
             ? Result.Success()
             : Result.Failure("Base64 hash verification failed.");
     }
 
-    #pragma warning disable IDE0060 // Remove unused parameter
+#pragma warning disable IDE0060 // Remove unused parameter
     // XXHash output size is fixed by the algorithm (32-bit or 64-bit), so this method is effectively a noop.
-    public IHasher WithHashSize(int size) => this;
-    #pragma warning restore IDE0060 // Remove unused parameter
+    public IHasher WithHashSize(int size)
+    {
+        return this;
+    }
+#pragma warning restore IDE0060 // Remove unused parameter
     public IHasher WithSeed(ulong seed)
     {
         _seed = seed;

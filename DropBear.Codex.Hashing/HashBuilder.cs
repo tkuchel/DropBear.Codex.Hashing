@@ -1,5 +1,9 @@
-﻿using DropBear.Codex.Hashing.Hashers;
+﻿#region
+
+using DropBear.Codex.Hashing.Hashers;
 using DropBear.Codex.Hashing.Interfaces;
+
+#endregion
 
 namespace DropBear.Codex.Hashing;
 
@@ -13,7 +17,8 @@ public class HashBuilder : IHashBuilder
     /// <summary>
     ///     Initializes a new instance of the HashBuilder class and configures default hasher services.
     /// </summary>
-    public HashBuilder() =>
+    public HashBuilder()
+    {
         _serviceConstructors = new Dictionary<string, Func<IHasher>>(StringComparer.OrdinalIgnoreCase)
         {
             { "argon2", () => new Argon2Hasher() },
@@ -25,6 +30,7 @@ public class HashBuilder : IHashBuilder
             { "xxhash", () => new XxHasher() },
             { "extended_blake3", () => new ExtendedBlake3Hasher() } // Extended Blake3 Service
         };
+    }
 
     /// <summary>
     ///     Retrieves a hasher instance based on the specified key.
@@ -35,7 +41,10 @@ public class HashBuilder : IHashBuilder
     public IHasher GetHasher(string key)
     {
         if (!_serviceConstructors.TryGetValue(key, out var constructor))
+        {
             throw new ArgumentException($"No hashing service registered for key: {key}", nameof(key));
+        }
+
         return constructor();
     }
 }

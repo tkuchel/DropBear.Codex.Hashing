@@ -1,9 +1,13 @@
-﻿using System.Collections;
+﻿#region
+
+using System.Collections;
 using System.Text;
 using Blake2Fast;
 using DropBear.Codex.Core;
 using DropBear.Codex.Hashing.Helpers;
 using DropBear.Codex.Hashing.Interfaces;
+
+#endregion
 
 namespace DropBear.Codex.Hashing.Hashers;
 
@@ -15,17 +19,25 @@ public class Blake2Hasher : IHasher
     public IHasher WithSalt(byte[]? salt)
     {
         if (salt is null || salt.Length is 0)
+        {
             throw new ArgumentException("Salt cannot be null or empty.", nameof(salt));
+        }
+
         _salt = salt;
         return this;
     }
 
-    public IHasher WithIterations(int iterations) => this;
+    public IHasher WithIterations(int iterations)
+    {
+        return this;
+    }
 
     public Result<string> Hash(string input)
     {
         if (string.IsNullOrEmpty(input))
+        {
             return Result<string>.Failure("Input cannot be null or empty.");
+        }
 
         _salt = _salt ?? HashingHelper.GenerateRandomSalt(32);
         var hashBytes = HashWithBlake2(input, _salt);
@@ -36,10 +48,14 @@ public class Blake2Hasher : IHasher
     public Result Verify(string input, string expectedHash)
     {
         if (string.IsNullOrEmpty(input) || string.IsNullOrEmpty(expectedHash))
+        {
             return Result.Failure("Input and expected hash cannot be null or empty.");
+        }
 
         if (_salt is null)
+        {
             return Result.Failure("Salt is required for verification.");
+        }
 
         try
         {
@@ -59,7 +75,9 @@ public class Blake2Hasher : IHasher
     public Result<string> EncodeToBase64Hash(byte[] data)
     {
         if (data == Array.Empty<byte>() || data.Length is 0)
+        {
             return Result<string>.Failure("Data cannot be null or empty.");
+        }
 
         var hash = Blake2b.ComputeHash(_hashSize, data);
         return Result<string>.Success(Convert.ToBase64String(hash));
@@ -68,7 +86,9 @@ public class Blake2Hasher : IHasher
     public Result VerifyBase64Hash(byte[] data, string expectedBase64Hash)
     {
         if (data == Array.Empty<byte>() || data.Length is 0)
+        {
             return Result.Failure("Data cannot be null or empty.");
+        }
 
         var hash = Blake2b.ComputeHash(_hashSize, data);
         var base64Hash = Convert.ToBase64String(hash);
@@ -79,7 +99,10 @@ public class Blake2Hasher : IHasher
     public IHasher WithHashSize(int size)
     {
         if (size < 1)
+        {
             throw new ArgumentOutOfRangeException(nameof(size), "Hash size must be at least 1 byte.");
+        }
+
         _hashSize = size;
         return this;
     }

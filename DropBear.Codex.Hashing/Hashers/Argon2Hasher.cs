@@ -1,9 +1,13 @@
-﻿using System.Collections;
+﻿#region
+
+using System.Collections;
 using System.Text;
 using DropBear.Codex.Core;
 using DropBear.Codex.Hashing.Helpers;
 using DropBear.Codex.Hashing.Interfaces;
 using Konscious.Security.Cryptography;
+
+#endregion
 
 namespace DropBear.Codex.Hashing.Hashers;
 
@@ -24,7 +28,10 @@ public class Argon2Hasher : IHasher
     public IHasher WithIterations(int iterations)
     {
         if (iterations < 1)
+        {
             throw new ArgumentOutOfRangeException(nameof(iterations), "Iterations must be at least 1.");
+        }
+
         _iterations = iterations;
         return this;
     }
@@ -32,7 +39,9 @@ public class Argon2Hasher : IHasher
     public Result<string> Hash(string input)
     {
         if (string.IsNullOrEmpty(input))
+        {
             return Result<string>.Failure("Input cannot be null or empty.");
+        }
 
         try
         {
@@ -53,10 +62,14 @@ public class Argon2Hasher : IHasher
         try
         {
             if (string.IsNullOrEmpty(input) || string.IsNullOrEmpty(expectedHash))
+            {
                 return Result.Failure("Input and expected hash cannot be null or empty.");
+            }
 
             if (_salt is null)
+            {
                 return Result.Failure("Salt is required for verification.");
+            }
 
             var expectedBytes = Convert.FromBase64String(expectedHash);
             var (salt, expectedHashBytes) = HashingHelper.ExtractBytes(expectedBytes, _salt.Length);
@@ -75,7 +88,9 @@ public class Argon2Hasher : IHasher
     public Result<string> EncodeToBase64Hash(byte[] data)
     {
         if (data == Array.Empty<byte>() || data.Length is 0)
+        {
             return Result<string>.Failure("Data cannot be null or empty.");
+        }
 
         return Result<string>.Success(Convert.ToBase64String(data));
     }
@@ -83,7 +98,9 @@ public class Argon2Hasher : IHasher
     public Result VerifyBase64Hash(byte[] data, string expectedBase64Hash)
     {
         if (data == Array.Empty<byte>() || data.Length is 0)
+        {
             return Result.Failure("Data cannot be null or empty.");
+        }
 
         var base64Hash = Convert.ToBase64String(data);
         return base64Hash == expectedBase64Hash ? Result.Success() : Result.Failure("Base64 hash verification failed.");
@@ -92,7 +109,10 @@ public class Argon2Hasher : IHasher
     public IHasher WithHashSize(int size)
     {
         if (size < 1)
+        {
             throw new ArgumentOutOfRangeException(nameof(size), "Hash size must be at least 1 byte.");
+        }
+
         _hashSize = size;
         return this;
     }
@@ -100,7 +120,10 @@ public class Argon2Hasher : IHasher
     public IHasher WithDegreeOfParallelism(int degree)
     {
         if (degree < 1)
+        {
             throw new ArgumentOutOfRangeException(nameof(degree), "Degree of parallelism must be at least 1.");
+        }
+
         _degreeOfParallelism = degree;
         return this;
     }
@@ -108,7 +131,10 @@ public class Argon2Hasher : IHasher
     public IHasher WithMemorySize(int size)
     {
         if (size < 1024)
+        {
             throw new ArgumentOutOfRangeException(nameof(size), "Memory size must be at least 1024 bytes (1KB).");
+        }
+
         _memorySize = size;
         return this;
     }

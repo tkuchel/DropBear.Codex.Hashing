@@ -1,30 +1,33 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
-    <PropertyGroup>
-        <TargetFramework>net8.0</TargetFramework>
-        <ImplicitUsings>enable</ImplicitUsings>
-        <Nullable>enable</Nullable>
-        <Version>2024.4.0</Version>
-        <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-        <Title>DropBear.Codex.Hashing</Title>
-        <Description>This library provides a flexible and extensible hashing framework, designed for easy integration and usage within .NET applications. It supports a variety of hashing algorithms and offers a fluent API for hasher configurations.
-</Description>
-        <Copyright>2024 Terrence Kuchel</Copyright>
-        <PackageProjectUrl>https://github.com/tkuchel/DropBear.Codex.Hashing</PackageProjectUrl>
-        <RepositoryUrl>https://github.com/tkuchel/DropBear.Codex.Hashing</RepositoryUrl>
-    </PropertyGroup>
-    <ItemGroup>
-        <None Include="..\README.md" Pack="true" PackagePath="\"/>
-    </ItemGroup>
-    <ItemGroup>
-      <PackageReference Include="Blake3" Version="1.1.0" />
-      <PackageReference Include="DropBear.Codex.Core" Version="2024.4.5" />
-      <PackageReference Include="HashDepot" Version="3.1.0" />
-      <PackageReference Include="Konscious.Security.Cryptography.Argon2" Version="1.3.0" />
-      <PackageReference Include="Meziantou.DotNet.CodingStandard" Version="1.0.123">
-        <PrivateAssets>all</PrivateAssets>
-        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      </PackageReference>
-      <PackageReference Include="SauceControl.Blake2Fast" Version="2.0.0" />
-    </ItemGroup>
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <Version>2024.7.0</Version>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <Title>DropBear.Codex.Hashing</Title>
+    <Description>This library provides a flexible and extensible hashing framework, designed for easy integration and usage within .NET applications. It supports a variety of hashing algorithms and offers a fluent API for hasher configurations.
+    </Description>
+    <Copyright>2024 Terrence Kuchel</Copyright>
+    <PackageProjectUrl>https://github.com/tkuchel/DropBear.Codex.Hashing</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/tkuchel/DropBear.Codex.Hashing</RepositoryUrl>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="..\README.md" Pack="true" PackagePath="\"/>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Blake3" Version="1.1.0"/>
+    <PackageReference Include="DropBear.Codex.Core" Version="2024.7.1"/>
+    <PackageReference Include="HashDepot" Version="3.1.0"/>
+    <PackageReference Include="Konscious.Security.Cryptography.Argon2" Version="1.3.1"/>
+    <PackageReference Include="Meziantou.DotNet.CodingStandard" Version="1.0.125">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="SauceControl.Blake2Fast" Version="2.0.0"/>
+    <PackageReference Update="Nerdbank.GitVersioning">
+      <Version>3.6.139</Version>
+    </PackageReference>
+  </ItemGroup>
 </Project>
